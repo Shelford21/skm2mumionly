@@ -147,11 +147,11 @@ if st.button("Submit Kehadiran"):
             if selected_status == "-":
                 st.warning("Isi hadir/ijin/sakit ok")
                 if selected_status == "Ijin":
-                    if user_input == "" and selected_name = "-":
+                    if user_input == "" and selected_name == "-":
                         st.warning("Tidak boleh kosong ok!")
                     else:
                         pass
-                if selected_status == "Sakit" and selected_name = "-":
+                if selected_status == "Sakit" and selected_name == "-":
                     if user_input == "":
                         st.warning("Tidak boleh kosong ok!")
                     else:
@@ -265,6 +265,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
