@@ -72,7 +72,7 @@ if selected_status == "Ijin":
         # Save to CSV
         df.to_csv(CSV_FILE, index=False)
 elif selected_status == "Sakit":
-    user_input = st.text_input("Ketik nama: (contoh:sakit demam)")
+    user_input = st.text_input("Ketik alasan: (contoh:sakit demam)")
     if user_input.strip() == "":
         st.warning("Tidak boleh kosong ok!")
     else:
@@ -108,24 +108,27 @@ if os.path.exists(CSV_FILE):
 if st.button("Submit Kehadiran"):
     # Find row for the selected name
     name_row = name.index[name.iloc[:, 1] == selected_name].tolist()
-    if name_row:
-        row_idx = name_row[0]
-        # Column D=3 (0-based index), so date 1 = col 3
-        col_idx = 3 + (selected_date - 1)
-
-        name.iat[row_idx, col_idx] = status_map[selected_status]
-
-        # Update Google Sheet
-        conn.update(worksheet=url, data=name)
-        #st.success(f"✅ Kehadiran {selected_name} untuk tanggal {selected_date} tersimpan sebagai '{status_map[selected_status]}'")
-        if selected_status == "Hadir":
-            st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga kehadiran hari ini dapat memberikan kebarokahan dan ilmu yang bermanfaat")
-        elif selected_status == "Ijin":
-            st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga allah paring banyak waktu longgar sehingga dapat hadir dijadwal sambung selanjutnya")
-        elif selected_status == "Sakit":
-            st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga allah paring kesembuhan dan kesehatan yang barokah sehingga dapat hadir dijadwal sambung selanjutnya")
+    if user_input.strip() == "":
+        st.warning("Tidak boleh kosong ok!")
     else:
-        st.error("Nama tidak ditemukan dalam daftar.")
+        if name_row:
+            row_idx = name_row[0]
+            # Column D=3 (0-based index), so date 1 = col 3
+            col_idx = 3 + (selected_date - 1)
+    
+            name.iat[row_idx, col_idx] = status_map[selected_status]
+    
+            # Update Google Sheet
+            conn.update(worksheet=url, data=name)
+            #st.success(f"✅ Kehadiran {selected_name} untuk tanggal {selected_date} tersimpan sebagai '{status_map[selected_status]}'")
+            if selected_status == "Hadir":
+                st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga kehadiran hari ini dapat memberikan kebarokahan dan ilmu yang bermanfaat")
+            elif selected_status == "Ijin":
+                st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga allah paring banyak waktu longgar sehingga dapat hadir dijadwal sambung selanjutnya")
+            elif selected_status == "Sakit":
+                st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga allah paring kesembuhan dan kesehatan yang barokah sehingga dapat hadir dijadwal sambung selanjutnya")
+        else:
+            st.error("Nama tidak ditemukan dalam daftar.")
         
 # Submit button
 # if st.button("Submit"):
@@ -198,6 +201,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
