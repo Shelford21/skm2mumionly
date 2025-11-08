@@ -3,7 +3,8 @@ import pandas as pd
 import os
 from streamlit_gsheets import GSheetsConnection
 from io import BytesIO
-from datetime import datetime
+from datetime import datetime, timedelta
+
 #from zoneinfo import ZoneInfo
 
 def load_css():
@@ -51,6 +52,15 @@ st.markdown(
         """,
         unsafe_allow_html=True
     )
+now = datetime.now() - timedelta(hours=7)
+
+# Format nicely: day name, day-month-year, hour:minute:second
+formatted_now = now.strftime("%A, %d %B %Y - %H:%M:%S")
+
+st.markdown(f"### 📅 Waktu saat ini (WIB): {formatted_now}")
+
+# Use day of month for attendance
+selected_date = now.day
 
 # now_jakarta = datetime.now(tz=ZoneInfo("Asia/Jakarta"))
 # formatted_now = now_jakarta.strftime("%A, %d %B %Y - %H:%M:%S")
@@ -255,6 +265,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
