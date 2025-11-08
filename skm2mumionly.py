@@ -10,7 +10,7 @@ def load_css():
 load_css()
 
 #url = "https://docs.google.com/spreadsheets/d/1dK2tKeeRGAiVc6p0guapTITane-NckvuAFB3rrHu3k8/edit?usp=sharing"
-url = "Absen November 2025"
+url = "ea"
 
 conn = st.connection("gsheets", type=GSheetsConnection)
 
@@ -135,6 +135,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
