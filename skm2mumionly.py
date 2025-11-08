@@ -61,57 +61,58 @@ status_list = ["-", "Hadir", "Ijin", "Sakit"]
 selected_status = st.selectbox("Pilih Status:", status_list)
 #selected_status = st.selectbox("Status Kehadiran:", list(status_map.keys()))
 # Text input
-if selected_status == "Ijin":
-    user_input = st.text_input("Ketik alasan: (contoh:ijin kerja)")
-    if os.path.exists(CSV_FILE):
-        df = pd.read_csv(CSV_FILE)
-    else:
-        df = pd.DataFrame(columns=["Text"])
 
-        # Add new submission
-    #new_row = pd.DataFrame({"Text":  f"{selected_name}" [user_input]})
-    new_row = pd.DataFrame({"Text": [f"{selected_name}: {user_input}"]})
-    df = pd.concat([df, new_row], ignore_index=True)
-
-        # Save to CSV
-    df.to_csv(CSV_FILE, index=False)
-elif selected_status == "Sakit":
-    user_input = st.text_input("Ketik alasan: (contoh:sakit demam)")
-    if user_input.strip() == "":
-        st.warning("Tidak boleh kosong ok!")
-    else:
-        # Load or create dataframe
-        if os.path.exists(CSV_FILE):
-            df = pd.read_csv(CSV_FILE)
-        else:
-            df = pd.DataFrame(columns=["Text"])
-
-        # Add new submission
-        new_row = pd.DataFrame({"Text": [f"{selected_name}: {user_input}"]})
-        df = pd.concat([df, new_row], ignore_index=True)
-
-        # Save to CSV
-        df.to_csv(CSV_FILE, index=False)
-elif selected_status == "Hadir":
-    user_input = "Hadir"
-    if user_input.strip() == "":
-        st.warning("Tidak boleh kosong ok!")
-    else:
-        # Load or create dataframe
-        if os.path.exists(CSV_FILE):
-            df = pd.read_csv(CSV_FILE)
-        else:
-            df = pd.DataFrame(columns=["Text"])
-
-        # Add new submission
-        new_row = pd.DataFrame({"Text": [f"{selected_name}: {user_input}"]})
-        df = pd.concat([df, new_row], ignore_index=True)
-
-        # Save to CSV
-        df.to_csv(CSV_FILE, index=False)
     
     
 if st.button("Submit Kehadiran"):
+    if selected_status == "Ijin":
+        user_input = st.text_input("Ketik alasan: (contoh: ijin kerja)")
+        if os.path.exists(CSV_FILE):
+            df = pd.read_csv(CSV_FILE)
+        else:
+            df = pd.DataFrame(columns=["Text"])
+    
+            # Add new submission
+        #new_row = pd.DataFrame({"Text":  f"{selected_name}" [user_input]})
+        new_row = pd.DataFrame({"Text": [f"{selected_name}: {user_input}"]})
+        df = pd.concat([df, new_row], ignore_index=True)
+    
+            # Save to CSV
+        df.to_csv(CSV_FILE, index=False)
+    elif selected_status == "Sakit":
+        user_input = st.text_input("Ketik alasan: (contoh: sakit demam)")
+        if user_input.strip() == "":
+            st.warning("Tidak boleh kosong ok!")
+        else:
+            # Load or create dataframe
+            if os.path.exists(CSV_FILE):
+                df = pd.read_csv(CSV_FILE)
+            else:
+                df = pd.DataFrame(columns=["Text"])
+    
+            # Add new submission
+            new_row = pd.DataFrame({"Text": [f"{selected_name}: {user_input}"]})
+            df = pd.concat([df, new_row], ignore_index=True)
+    
+            # Save to CSV
+            df.to_csv(CSV_FILE, index=False)
+    elif selected_status == "Hadir":
+        user_input = "Hadir"
+        if user_input.strip() == "":
+            st.warning("Tidak boleh kosong ok!")
+        else:
+            # Load or create dataframe
+            if os.path.exists(CSV_FILE):
+                df = pd.read_csv(CSV_FILE)
+            else:
+                df = pd.DataFrame(columns=["Text"])
+    
+            # Add new submission
+            new_row = pd.DataFrame({"Text": [f"{selected_name}: {user_input}"]})
+            df = pd.concat([df, new_row], ignore_index=True)
+    
+            # Save to CSV
+            df.to_csv(CSV_FILE, index=False)
     # Find row for the selected name
     name_row = name.index[name.iloc[:, 1] == selected_name].tolist()
     if user_input.strip() == "":
@@ -226,6 +227,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
