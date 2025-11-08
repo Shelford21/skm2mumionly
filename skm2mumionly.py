@@ -198,7 +198,7 @@ if admin_password == ADMIN_PASSWORD:
                 st.success("✅ All data cleared successfully!")
             else:
                 st.info("No data file found to clear.")
-    with st.expander("Liat Absen / Download Absen"):
+    with st.expander("🚀 Unduh / Liat Absen"):
         col1, col2 = st.columns(2)
         with col1:
             csv = dff.to_csv(index=False).encode("utf-8")
@@ -210,11 +210,13 @@ if admin_password == ADMIN_PASSWORD:
                 
         with col2:
             if st.button("Buka Spreedsheet absen"):
-                st.markdown(f"[👉]({url})", unsafe_allow_html=True)
+                js = f"window.open('{url}', '_blank')"
+                st.markdown(f"<script>{js}</script>", unsafe_allow_html=True)
     
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
