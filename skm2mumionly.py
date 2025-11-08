@@ -53,7 +53,7 @@ st.markdown(
 
 now = datetime.now()
 # Format: 2025-11-08 19:42:10 (Year-Month-Day Hour:Minute:Second)
-formatted_now = now.strftime("%Y-%m-%d %H:%M:%S")
+formatted_now = now.strftime("%Y-%m-%d")
 
 st.markdown(f"### 📅 Waktu saat ini: {formatted_now}")
 
@@ -256,6 +256,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
