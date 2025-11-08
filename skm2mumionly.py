@@ -9,13 +9,15 @@ def load_css():
 
 load_css()
 
-url = "https://docs.google.com/spreadsheets/d/1dK2tKeeRGAiVc6p0guapTITane-NckvuAFB3rrHu3k8/edit?usp=sharing"
+#url = "https://docs.google.com/spreadsheets/d/1dK2tKeeRGAiVc6p0guapTITane-NckvuAFB3rrHu3k8/edit?usp=sharing"
+url = "Absen November 2025"
 
 conn = st.connection("gsheets", type=GSheetsConnection)
 
-data = conn.read(spreadsheet=url, worksheet="1750077145")
+#data = conn.read(spreadsheet=url, worksheet="1750077145")
+data = conn.read(worksheet="url")
 
-name= conn.read(spreadsheet=url, worksheet="1750077145")
+name= conn.read(worksheet="url")
 
 # Safely slice rows B6:B27 (column index 1 since A=0, B=1)
 name_list = name.iloc[5:27, 1].dropna().astype(str).tolist()  # B6:B27
@@ -133,6 +135,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
