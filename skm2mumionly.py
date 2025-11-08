@@ -13,6 +13,8 @@ load_css()
 #url = "https://docs.google.com/spreadsheets/d/1dK2tKeeRGAiVc6p0guapTITane-NckvuAFB3rrHu3k8/edit?usp=sharing"
 url = "ea"
 #urll = "https://docs.google.com/spreadsheets/d/1dK2tKeeRGAiVc6p0guapTITane-NckvuAFB3rrHu3k8/edit?usp=sharing"
+sheet_id = "1dK2tKeeRGAiVc6p0guapTITane-NckvuAFB3rrHu3k8"
+excel_link = f"https://docs.google.com/spreadsheets/d/1dK2tKeeRGAiVc6p0guapTITane-NckvuAFB3rrHu3k8/export?format=xlsx"
 
 conn = st.connection("gsheets", type=GSheetsConnection)
 
@@ -212,22 +214,13 @@ if admin_password == ADMIN_PASSWORD:
                 
         with col2:
             if st.button("Buka Spreedsheet absen"):
-                output = BytesIO()
-            with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
-                dff.to_excel(writer, index=False, sheet_name="Absensi")
-            excel_data = output.getvalue()
-    
-            # Create Streamlit download button
-            st.download_button(
-                label="⬇️ Unduh Absen (Excel)",
-                data=excel_data,
-                file_name="submissions.xlsx",
-                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-            )
+                js = f"window.open('{excel_link}', '_blank')"
+                st.markdown(f"<script>{js}</script>", unsafe_allow_html=True)
     
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
