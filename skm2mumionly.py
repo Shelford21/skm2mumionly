@@ -25,7 +25,7 @@ data = conn.read(worksheet=url)
 name= conn.read(worksheet=url)
 
 #selected_date = st.8number_input("Tanggal:", min_value=1, max_value=30, step=1)
-selected_date = datetime.now().day
+
 
 dff = pd.DataFrame(name)
 # st.dataframe(data)
@@ -51,11 +51,9 @@ st.markdown(
         unsafe_allow_html=True
     )
 
-now = datetime.now()
-# Format: 2025-11-08 19:42:10 (Year-Month-Day Hour:Minute:Second)
-formatted_now = now.strftime("%Y-%m-%d")
-
-st.markdown(f"### 📅 Waktu saat ini: {formatted_now}")
+now_jakarta = datetime.now(tz=ZoneInfo("Asia/Jakarta"))
+formatted_now = now_jakarta.strftime("%A, %d %B %Y - %H:%M:%S")
+selected_date = now_jakarta.day
 
 # Safely slice rows B6:B27 (column index 1 since A=0, B=1)
 name_list = name.iloc[5:27, 1].dropna().astype(str).tolist()  # B6:B27
@@ -256,6 +254,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
