@@ -86,7 +86,7 @@ elif selected_status == "Sakit":
         # Save to CSV
         df.to_csv(CSV_FILE, index=False)
 elif selected_status == "Hadir":
-    user_input = Hadir)
+    user_input = "Hadir"
     if user_input.strip() == "":
         st.warning("Tidak boleh kosong ok!")
     else:
@@ -215,6 +215,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
