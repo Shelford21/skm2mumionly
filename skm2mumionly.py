@@ -16,7 +16,7 @@ conn = st.connection("gsheets", type=GSheetsConnection)
 data = conn.read(spreadsheet=url, worksheet="1750077145")
 
 # Read only the range B6:B27 from "Sheet1"
-name = conn.read(spreadsheet=url, worksheet="Sheet1", usecols="B", skiprows=5, nrows=22)
+name = conn.read(spreadsheet=url, worksheet="1750077145", usecols="B", skiprows=5, nrows=22)
 
 # Drop empty rows just in case
 name = name.dropna().reset_index(drop=True)
@@ -118,6 +118,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
