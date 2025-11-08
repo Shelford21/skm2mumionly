@@ -115,8 +115,8 @@ if st.button("Submit Kehadiran"):
             df.to_csv(CSV_FILE, index=False)
     # Find row for the selected name
     name_row = name.index[name.iloc[:, 1] == selected_name].tolist()
-    if user_input.strip() == "":
-        st.warning("Tidak boleh kosong ok!")
+    # if user_input.strip() == "":
+    #     st.warning("Tidak boleh kosong ok!")
     else:
         if name_row:
             row_idx = name_row[0]
@@ -227,6 +227,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
