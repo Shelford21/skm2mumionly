@@ -52,12 +52,12 @@ st.markdown(
         """,
         unsafe_allow_html=True
     )
-now = datetime.now() - timedelta(hours=7)
+now = datetime.now() - timedelta(hours=5)
 
 # Format nicely: day name, day-month-year, hour:minute:second
 formatted_now = now.strftime("%A, %d %B %Y - %H:%M:%S")
 
-st.markdown(f"### 📅 Waktu saat ini (WIB): {formatted_now}")
+st.markdown(f"### 📅 {formatted_now}")
 
 # Use day of month for attendance
 selected_date = now.day
@@ -265,6 +265,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
