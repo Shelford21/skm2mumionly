@@ -131,6 +131,16 @@ if st.button("Submit Kehadiran"):
     
             if selected_status == "-":
                 st.warning("Isi hadir/ijin/sakit ok")
+                if selected_status == "Ijin":
+                    if user_input == "":
+                        st.warning("Tidak boleh kosong ok!")
+                    else:
+                        pass
+                if selected_status == "Sakit":
+                    if user_input == "":
+                        st.warning("Tidak boleh kosong ok!")
+                    else:
+                        pass
             else:
                 name.iat[row_idx, col_idx] = status_map[selected_status]
             
@@ -236,6 +246,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
