@@ -63,7 +63,7 @@ selected_status = st.selectbox("Pilih Status:", status_list)
 # Text input
 
     
-    if selected_status == "Ijin":
+if selected_status == "Ijin":
         user_input = st.text_input("Ketik alasan: (contoh: ijin kerja)")
         if os.path.exists(CSV_FILE):
             df = pd.read_csv(CSV_FILE)
@@ -77,7 +77,7 @@ selected_status = st.selectbox("Pilih Status:", status_list)
     
             # Save to CSV
         df.to_csv(CSV_FILE, index=False)
-    elif selected_status == "Sakit":
+elif selected_status == "Sakit":
         user_input = st.text_input("Ketik alasan: (contoh: sakit demam)")
         if user_input.strip() == "":
             st.warning("Tidak boleh kosong ok!")
@@ -94,7 +94,7 @@ selected_status = st.selectbox("Pilih Status:", status_list)
     
             # Save to CSV
             df.to_csv(CSV_FILE, index=False)
-    elif selected_status == "Hadir":
+elif selected_status == "Hadir":
         user_input = "Hadir"
         if user_input.strip() == "":
             st.warning("Tidak boleh kosong ok!")
@@ -233,6 +233,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
