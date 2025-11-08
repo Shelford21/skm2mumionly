@@ -13,7 +13,7 @@ url = "https://docs.google.com/spreadsheets/d/1Gc3Wi1vpTP4g5rnWuaRJDZWycZHvKO7F2
 
 conn = st.connection("gsheets", type=GSheetsConnection)
 
-data = conn.read(spreadsheet=url, usecols=[0, 1], worksheets="1453155026")
+data = conn.read(spreadsheet=url, usecols=[0, 1], worksheet="1453155026")
 st.dataframe(data)
 
 # File to store submissions
@@ -104,6 +104,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
