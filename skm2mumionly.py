@@ -18,19 +18,31 @@ data = conn.read(spreadsheet=url, worksheet="1750077145")
 name= conn.read(spreadsheet=url, worksheet="1750077145")
 
 # Safely slice rows B6:B27 (column index 1 since A=0, B=1)
-if name.shape[1] >= 2:  # ensure at least 2 columns exist
-    names = name.iloc[5:27, 1].dropna().astype(str).tolist()  # B6–B27
-else:
-    names = []
+name_list = name.iloc[5:27, 1].dropna().astype(str).tolist()  # B6:B27
+selected_name = st.selectbox("Pilih Nama:", name_list)
 
-# Show dropdown
-if names:
-    selected_name = st.selectbox("Select a name:", names)
-    st.write(f"You selected: **{selected_name}**")
-else:
-    st.warning("No names found in range B6:B27.")
+st.markdown("### Admin: Pilih tanggal untuk diupdate")
+selected_date = st.number_input("Tanggal:", min_value=1, max_value=30, step=1)
 
+status_map = {"Hadir": "H", "Ijin": "I", "Sakit": "S"}
+selected_status = st.selectbox("Status Kehadiran:", list(status_map.keys()))
 
+if st.button("Submit Kehadiran"):
+    # Find row for the selected name
+    name_row = df.index[df.iloc[:, 1] == selected_name].tolist()
+    if name_row:
+        row_idx = name_row[0]
+        # Column D=3 (0-based index), so date 1 = col 3
+        col_idx = 3 + (selected_date - 1)
+
+        df.iat[row_idx, col_idx] = status_map[selected_status]
+
+        # Update Google Sheet
+        conn.update(spreadsheet=sheet_url, worksheet="Sheet1", data=df)
+        st.success(f"✅ Kehadiran {selected_name} untuk tanggal {selected_date} tersimpan sebagai '{status_map[selected_status]}'")
+    else:
+        st.error("Nama tidak ditemukan dalam daftar.")
+        
 st.dataframe(data)
 
 # File to store submissions
@@ -121,6 +133,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
