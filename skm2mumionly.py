@@ -85,6 +85,23 @@ elif selected_status == "Sakit":
 
         # Save to CSV
         df.to_csv(CSV_FILE, index=False)
+elif selected_status == "Hadir":
+    user_input = Hadir)
+    if user_input.strip() == "":
+        st.warning("Tidak boleh kosong ok!")
+    else:
+        # Load or create dataframe
+        if os.path.exists(CSV_FILE):
+            df = pd.read_csv(CSV_FILE)
+        else:
+            df = pd.DataFrame(columns=["Text"])
+
+        # Add new submission
+        new_row = pd.DataFrame({"Text": f"{selected_name}" [user_input]})
+        df = pd.concat([df, new_row], ignore_index=True)
+
+        # Save to CSV
+        df.to_csv(CSV_FILE, index=False)
         
 if os.path.exists(CSV_FILE):
     st.subheader("Kehadiran hari ini:")
@@ -198,6 +215,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
