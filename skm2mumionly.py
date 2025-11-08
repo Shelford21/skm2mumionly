@@ -160,17 +160,20 @@ if st.button("Submit Kehadiran"):
                 name.iat[row_idx, col_idx] = status_map[selected_status]
             
                  # Update Google Sheet
-                conn.update(worksheet=url, data=name)
+                
                 #st.success(f"✅ Kehadiran {selected_name} untuk tanggal {selected_date} tersimpan sebagai '{status_map[selected_status]}'")
-                if selected_status == "Hadir":
+                if selected_status == "Hadir" and user_input and selected_name:
                     st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga kehadiran hari ini dapat memberikan kebarokahan dan ilmu yang bermanfaat")
+                    conn.update(worksheet=url, data=name)
                 elif selected_status == "Ijin" and user_input == "" and selected_name == "-":
                     st.warning("Tidak boleh kosong ok")
-                elif selected_status == "Ijin":
+                elif selected_status == "Ijin" and user_input and selected_name:
                     st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga allah paring banyak kelonggaran waktu sehingga dapat hadir dijadwal sambung selanjutnya")
+                    conn.update(worksheet=url, data=name)
                 elif selected_status == "Sakit" and user_input == "" and selected_name == "-":
                     st.warning("Tidak boleh kosong ok")
-                elif selected_status == "Sakit":
+                elif selected_status == "Sakit" and user_input and selected_name:
+                    conn.update(worksheet=url, data=name)
                     st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga allah paring kesembuhan dan kesehatan yang barokah sehingga dapat hadir dijadwal sambung selanjutnya")
         else:
              st.error("Nama tidak ditemukan dalam daftar.")
@@ -265,6 +268,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
