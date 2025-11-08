@@ -35,7 +35,7 @@ if st.button("Submit Kehadiran"):
         # Column D=3 (0-based index), so date 1 = col 3
         col_idx = 3 + (selected_date - 1)
 
-        df.iat[row_idx, col_idx] = status_map[selected_status]
+        name.iat[row_idx, col_idx] = status_map[selected_status]
 
         # Update Google Sheet
         conn.update(spreadsheet=url, worksheet="1750077145", data=name)
@@ -133,6 +133,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
