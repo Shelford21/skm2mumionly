@@ -194,10 +194,11 @@ if admin_password == ADMIN_PASSWORD:
         with col2:
             if st.button("Buka Spreedsheet absen"):
                 st.markdown(f"[👉]({url})", unsafe_allow_html=True)
-    )
+    
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
