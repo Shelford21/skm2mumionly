@@ -80,7 +80,7 @@ elif selected_status == "Sakit":
             df = pd.DataFrame(columns=["Text"])
 
         # Add new submission
-        new_row = pd.DataFrame({"Text": f"{selected_name}" [user_input]})
+        new_row = pd.DataFrame({"Text": [f"{selected_name}: {user_input}"]})
         df = pd.concat([df, new_row], ignore_index=True)
 
         # Save to CSV
@@ -97,7 +97,7 @@ elif selected_status == "Hadir":
             df = pd.DataFrame(columns=["Text"])
 
         # Add new submission
-        new_row = pd.DataFrame({"Text": f"{selected_name}" [user_input]})
+        new_row = pd.DataFrame({"Text": [f"{selected_name}: {user_input}"]})
         df = pd.concat([df, new_row], ignore_index=True)
 
         # Save to CSV
@@ -215,6 +215,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
