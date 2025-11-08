@@ -14,6 +14,20 @@ url = "https://docs.google.com/spreadsheets/d/1dK2tKeeRGAiVc6p0guapTITane-NckvuA
 conn = st.connection("gsheets", type=GSheetsConnection)
 
 data = conn.read(spreadsheet=url, worksheet="1750077145")
+
+# Read only the range B6:B27 from "Sheet1"
+name = conn.read(spreadsheet=sheet_url, worksheet="Sheet1", usecols="B", skiprows=5, nrows=22)
+
+# Drop empty rows just in case
+name = name.dropna().reset_index(drop=True)
+
+# Get list of names
+name_list = name.iloc[:, 0].tolist()
+
+# Create dropdown
+selected_name = st.selectbox("Select a name:", name_list)
+
+
 st.dataframe(data)
 
 # File to store submissions
@@ -104,6 +118,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
