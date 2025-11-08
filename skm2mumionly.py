@@ -220,11 +220,12 @@ if admin_password == ADMIN_PASSWORD:
                 label="⬇️ Unduh absen ok",
                 data=df_display.to_csv(index=False).encode('utf-8'),
                 file_name="alasan ijin/sakit.csv",
-                mime="text/csv"
+                mime="text/csv")
     
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
