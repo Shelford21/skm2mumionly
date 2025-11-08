@@ -209,14 +209,25 @@ if admin_password == ADMIN_PASSWORD:
                 file_name="submissions.csv",
                 mime="text/csv")
                 
-        # with col2:
-        #     if st.button("Buka Spreedsheet absen"):
-        #         js = f"window.open('{urll}', '_blank')"
-        #         st.markdown(f"<script>{js}</script>", unsafe_allow_html=True)
+        with col2:
+            if st.button("Buka Spreedsheet absen"):
+                output = BytesIO()
+            with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
+                dff.to_excel(writer, index=False, sheet_name="Absensi")
+            excel_data = output.getvalue()
+    
+            # Create Streamlit download button
+            st.download_button(
+                label="⬇️ Unduh Absen (Excel)",
+                data=excel_data,
+                file_name="submissions.xlsx",
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            )
     
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
