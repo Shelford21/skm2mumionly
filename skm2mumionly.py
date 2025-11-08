@@ -63,7 +63,7 @@ selected_status = st.selectbox("Pilih Status:", status_list)
 # Text input
 
     
-if selected_status == "Ijin":
+    if selected_status == "Ijin":
         user_input = st.text_input("Ketik alasan: (contoh: ijin kerja)")
         if os.path.exists(CSV_FILE):
             df = pd.read_csv(CSV_FILE)
@@ -233,6 +233,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
