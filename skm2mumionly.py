@@ -147,9 +147,10 @@ if st.button("Submit Kehadiran"):
                 st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga allah paring kesembuhan dan kesehatan yang barokah sehingga dapat hadir dijadwal sambung selanjutnya")
         else:
             st.error("Nama tidak ditemukan dalam daftar.")
-if os.path.exists(CSV_FILE):
-    st.subheader("Kehadiran hari ini:")
-    df_display = pd.read_csv(CSV_FILE)
+            
+#if os.path.exists(CSV_FILE):
+st.subheader("Kehadiran hari ini:")
+df_display = pd.read_csv(CSV_FILE)
     
 # Submit button
 # if st.button("Submit"):
@@ -226,6 +227,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
