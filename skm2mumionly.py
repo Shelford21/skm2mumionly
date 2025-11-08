@@ -23,8 +23,8 @@ name= conn.read(worksheet=url)
 name_list = name.iloc[5:27, 1].dropna().astype(str).tolist()  # B6:B27
 selected_name = st.selectbox("Pilih Nama:", name_list)
 
-st.markdown("### Admin: Pilih tanggal untuk diupdate")
-selected_date = st.number_input("Tanggal:", min_value=1, max_value=30, step=1)
+#selected_date = st.8number_input("Tanggal:", min_value=1, max_value=30, step=1)
+selected_date = 8
 
 status_map = {"Hadir": "H", "Ijin": "I", "Sakit": "S"}
 selected_status = st.selectbox("Status Kehadiran:", list(status_map.keys()))
@@ -135,6 +135,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
