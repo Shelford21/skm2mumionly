@@ -11,7 +11,7 @@ load_css()
 
 #url = "https://docs.google.com/spreadsheets/d/1dK2tKeeRGAiVc6p0guapTITane-NckvuAFB3rrHu3k8/edit?usp=sharing"
 url = "ea"
-urll = "https://docs.google.com/spreadsheets/d/1dK2tKeeRGAiVc6p0guapTITane-NckvuAFB3rrHu3k8/edit?usp=sharing"
+#urll = "https://docs.google.com/spreadsheets/d/1dK2tKeeRGAiVc6p0guapTITane-NckvuAFB3rrHu3k8/edit?usp=sharing"
 
 conn = st.connection("gsheets", type=GSheetsConnection)
 
@@ -199,7 +199,7 @@ if admin_password == ADMIN_PASSWORD:
                 st.success("✅ All data cleared successfully!")
             else:
                 st.info("No data file found to clear.")
-    with st.expander("🚀 Unduh / Liat Absen"):
+    with st.expander("🚀 Unduh Absen"):
         col1, col2 = st.columns(2)
         with col1:
             csv = dff.to_csv(index=False).encode("utf-8")
@@ -209,14 +209,15 @@ if admin_password == ADMIN_PASSWORD:
                 file_name="submissions.csv",
                 mime="text/csv")
                 
-        with col2:
-            if st.button("Buka Spreedsheet absen"):
-                js = f"window.open('{urll}', '_blank')"
-                st.markdown(f"<script>{js}</script>", unsafe_allow_html=True)
+        # with col2:
+        #     if st.button("Buka Spreedsheet absen"):
+        #         js = f"window.open('{urll}', '_blank')"
+        #         st.markdown(f"<script>{js}</script>", unsafe_allow_html=True)
     
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
