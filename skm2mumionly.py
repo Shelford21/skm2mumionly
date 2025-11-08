@@ -71,11 +71,11 @@ selected_date = now.day
 
 name_list = name.iloc[5:27, 1].dropna().astype(str).tolist()  # B6:B27
 name_list.insert(0, "-")
-selected_name = st.selectbox("Pilih Nama:", name_list, key="selected_name")
+selected_name = st.selectbox("Pilih Nama:", name_list)
 
 status_map = {"Hadir": "H", "Ijin": "I", "Sakit": "S"}
 status_list = ["-", "Hadir", "Ijin", "Sakit"]
-selected_status = st.selectbox("Pilih Status:", status_list, key="selected_status")
+selected_status = st.selectbox("Pilih Status:", status_list)
 #selected_status = st.selectbox("Status Kehadiran:", list(status_map.keys()))
 # Text input
 
@@ -133,8 +133,8 @@ elif selected_status == "Hadir" and selected_name != "-":
             df.to_csv(CSV_FILE, index=False)
 
 if st.button("Submit Kehadiran"):
-    st.session_state["selected_name"] = "-"
-    st.session_state["selected_status"] = "-"
+    # st.session_state["selected_name"] = "-"
+    # st.session_state["selected_status"] = "-"
     # Find row for the selected name
     name_row = name.index[name.iloc[:, 1] == selected_name].tolist()
     # if user_input.strip() == "":
@@ -275,6 +275,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
