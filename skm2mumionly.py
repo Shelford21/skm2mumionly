@@ -109,10 +109,7 @@ elif selected_status == "Hadir":
 
         # Save to CSV
         df.to_csv(CSV_FILE, index=False)
-        
-if os.path.exists(CSV_FILE):
-    st.subheader("Kehadiran hari ini:")
-    df_display = pd.read_csv(CSV_FILE)
+    
 
     # Function to censor from second word onward
     def censor_from_second_word(text):
@@ -187,6 +184,10 @@ if st.button("Submit Kehadiran"):
 #     df_display["Absen"] = df_display["Text"].apply(censor_from_second_word)
 #     st.dataframe(df_display[["Absen"]])
 
+if os.path.exists(CSV_FILE):
+    st.subheader("Kehadiran hari ini:")
+    df_display = pd.read_csv(CSV_FILE)
+    
 # Divider
 st.markdown("---")
 
@@ -225,6 +226,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
