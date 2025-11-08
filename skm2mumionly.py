@@ -40,7 +40,7 @@ if st.button("Submit Kehadiran"):
         name.iat[row_idx, col_idx] = status_map[selected_status]
 
         # Update Google Sheet
-        conn.update(spreadsheet=url, worksheet="1750077145", data=name)
+        conn.update(worksheet=url, data=name)
         st.success(f"✅ Kehadiran {selected_name} untuk tanggal {selected_date} tersimpan sebagai '{status_map[selected_status]}'")
     else:
         st.error("Nama tidak ditemukan dalam daftar.")
@@ -135,6 +135,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
