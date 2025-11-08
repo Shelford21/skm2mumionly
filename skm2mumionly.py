@@ -43,7 +43,7 @@ if st.button("Submit Kehadiran"):
         conn.update(worksheet=url, data=name)
         #st.success(f"✅ Kehadiran {selected_name} untuk tanggal {selected_date} tersimpan sebagai '{status_map[selected_status]}'")
         if selected_status == "Hadir":
-            st.success(f"✅ {selected_name} جَزَاكُمُ اللهُ خَيْرًا - Semoga kehahdiran hari ini dapat memberikan kebarokahan")
+            st.success(f"✅ {selected_name} جَزَاكُمُ اللهُ خَيْرًا - Semoga kehadiran hari ini dapat memberikan kebarokahan dan ilmu yang bermanfaat")
         elif selected_status == "Ijin":
             st.success(f"✅ {selected_name} جَزَاكُمُ اللهُ خَيْرًا - Semoga allah paring banyak waktu longgar sehinnga dapat hadir dijadwal sambung selanjutnya")
         elif selected_status == "Sakit":
@@ -141,6 +141,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
