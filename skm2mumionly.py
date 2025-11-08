@@ -133,8 +133,8 @@ elif selected_status == "Hadir" and selected_name != "-":
             df.to_csv(CSV_FILE, index=False)
 
 if st.button("Submit Kehadiran"):
-        st.session_state["selected_name"] = "-"
-        st.session_state["selected_status"] = "-"
+    st.session_state["selected_name"] = "-"
+    st.session_state["selected_status"] = "-"
     # Find row for the selected name
     name_row = name.index[name.iloc[:, 1] == selected_name].tolist()
     # if user_input.strip() == "":
@@ -275,6 +275,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
