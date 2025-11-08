@@ -47,7 +47,7 @@ if st.button("Submit Kehadiran"):
         elif selected_status == "Ijin":
             st.success(f"✅ {selected_name} جَزَاكُمُ اللهُ خَيْرًا - Semoga allah paring banyak waktu longgar sehinnga dapat hadir dijadwal sambung selanjutnya")
         elif selected_status == "Sakit":
-            st.successf"✅ {selected_name} جَزَاكُمُ اللهُ خَيْرًا - Semoga allah paring kesembuhan dan kesehatan yang barokah")
+            st.successf("✅ {selected_name} جَزَاكُمُ اللهُ خَيْرًا - Semoga allah paring kesembuhan dan kesehatan yang barokah")
     else:
         st.error("Nama tidak ditemukan dalam daftar.")
         
@@ -141,6 +141,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
