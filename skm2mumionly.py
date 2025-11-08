@@ -210,14 +210,14 @@ if admin_password == ADMIN_PASSWORD:
         with col1:
             csv = dff.to_csv(index=False).encode("utf-8")
             st.download_button(
-                label="⬇️ Unduh absen ok",
+                label="⬇️ absen report",
                 data=csv,
                 file_name="absen report.csv",
                 mime="text/csv")
                 
         with col2:
             st.download_button(
-                label="⬇️ Unduh absen ok",
+                label="⬇️ alasan ijin/sakit",
                 data=df_display.to_csv(index=False).encode('utf-8'),
                 file_name="alasan ijin/sakit.csv",
                 mime="text/csv")
@@ -225,6 +225,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
