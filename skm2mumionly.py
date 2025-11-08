@@ -3,6 +3,7 @@ import pandas as pd
 import os
 from streamlit_gsheets import GSheetsConnection
 from io import BytesIO
+from datetime import datetime
 
 def load_css():
     with open("styles.css") as f:
@@ -24,7 +25,7 @@ data = conn.read(worksheet=url)
 name= conn.read(worksheet=url)
 
 #selected_date = st.8number_input("Tanggal:", min_value=1, max_value=30, step=1)
-selected_date = 8
+selected_date = datetime.now().day
 
 dff = pd.DataFrame(name)
 # st.dataframe(data)
@@ -250,6 +251,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
