@@ -167,7 +167,7 @@ if st.button("Submit Kehadiran"):
                 elif selected_status == "Ijin" and user_input == "" and selected_name == "-":
                     st.warning("Tidak boleh kosong ok")
                 elif selected_status == "Ijin":
-                    st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga allah paring banyak waktu longgar sehingga dapat hadir dijadwal sambung selanjutnya")
+                    st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga allah paring banyak kelonggaran waktu sehingga dapat hadir dijadwal sambung selanjutnya")
                 elif selected_status == "Sakit" and user_input == "" and selected_name == "-":
                     st.warning("Tidak boleh kosong ok")
                 elif selected_status == "Sakit":
@@ -265,6 +265,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
