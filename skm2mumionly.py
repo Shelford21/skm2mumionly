@@ -11,6 +11,7 @@ load_css()
 
 #url = "https://docs.google.com/spreadsheets/d/1dK2tKeeRGAiVc6p0guapTITane-NckvuAFB3rrHu3k8/edit?usp=sharing"
 url = "ea"
+urll = "https://docs.google.com/spreadsheets/d/1dK2tKeeRGAiVc6p0guapTITane-NckvuAFB3rrHu3k8/edit?usp=sharing"
 
 conn = st.connection("gsheets", type=GSheetsConnection)
 
@@ -210,12 +211,13 @@ if admin_password == ADMIN_PASSWORD:
                 
         with col2:
             if st.button("Buka Spreedsheet absen"):
-                js = f"window.open('{url}', '_blank')"
+                js = f"window.open('{urlr}', '_blank')"
                 st.markdown(f"<script>{js}</script>", unsafe_allow_html=True)
     
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
