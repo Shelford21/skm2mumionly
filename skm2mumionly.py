@@ -29,7 +29,7 @@ selected_status = st.selectbox("Status Kehadiran:", list(status_map.keys()))
 
 if st.button("Submit Kehadiran"):
     # Find row for the selected name
-    name_row = name.index[df.iloc[:, 1] == selected_name].tolist()
+    name_row = name.index[name.iloc[:, 1] == selected_name].tolist()
     if name_row:
         row_idx = name_row[0]
         # Column D=3 (0-based index), so date 1 = col 3
@@ -133,6 +133,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
