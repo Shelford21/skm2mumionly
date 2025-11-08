@@ -189,7 +189,8 @@ if admin_password == ADMIN_PASSWORD:
                 label="⬇️ Unduh absen ok",
                 data=csv,
                 file_name="submissions.csv",
-                mime="text/csv"
+                mime="text/csv")
+                
         with col2:
             if st.button("Buka Spreedsheet absen"):
                 st.markdown(f"[👉]({url})", unsafe_allow_html=True)
@@ -197,6 +198,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
