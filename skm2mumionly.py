@@ -117,7 +117,7 @@ if st.button("Submit Kehadiran"):
     name_row = name.index[name.iloc[:, 1] == selected_name].tolist()
     # if user_input.strip() == "":
     #     st.warning("Tidak boleh kosong ok!")
-    else:
+    #else:
         if name_row:
             row_idx = name_row[0]
             # Column D=3 (0-based index), so date 1 = col 3
@@ -227,6 +227,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
