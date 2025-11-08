@@ -212,17 +212,20 @@ if admin_password == ADMIN_PASSWORD:
             st.download_button(
                 label="⬇️ Unduh absen ok",
                 data=csv,
-                file_name="submissions.csv",
+                file_name="absen report.csv",
                 mime="text/csv")
                 
-        # with col2:
-        #     if st.button("Buka Spreedsheet absen"):
-        #         js = f"window.open('{excel_link}', '_blank')"
-        #         st.markdown(f"<script>{js}</script>", unsafe_allow_html=True)
+        with col2:
+            st.download_button(
+                label="⬇️ Unduh absen ok",
+                data=df_display.to_csv(index=False).encode('utf-8'),
+                file_name="alasan ijin/sakit.csv",
+                mime="text/csv"
     
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
