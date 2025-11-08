@@ -211,12 +211,13 @@ if admin_password == ADMIN_PASSWORD:
                 
         with col2:
             if st.button("Buka Spreedsheet absen"):
-                js = f"window.open('{urlr}', '_blank')"
+                js = f"window.open('{urll}', '_blank')"
                 st.markdown(f"<script>{js}</script>", unsafe_allow_html=True)
     
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
