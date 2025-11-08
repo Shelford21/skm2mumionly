@@ -122,18 +122,21 @@ if st.button("Submit Kehadiran"):
         row_idx = name_row[0]
          # Column D=3 (0-based index), so date 1 = col 3
         col_idx = 3 + (selected_date - 1)
-    
-        name.iat[row_idx, col_idx] = status_map[selected_status]
-    
-         # Update Google Sheet
-        conn.update(worksheet=url, data=name)
-        #st.success(f"✅ Kehadiran {selected_name} untuk tanggal {selected_date} tersimpan sebagai '{status_map[selected_status]}'")
-        if selected_status == "Hadir":
-            st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga kehadiran hari ini dapat memberikan kebarokahan dan ilmu yang bermanfaat")
-        elif selected_status == "Ijin":
-            st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga allah paring banyak waktu longgar sehingga dapat hadir dijadwal sambung selanjutnya")
-        elif selected_status == "Sakit":
-            st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga allah paring kesembuhan dan kesehatan yang barokah sehingga dapat hadir dijadwal sambung selanjutnya")
+
+        if selected_status == "-":
+            st.warning("Isi hadir/ijin/sakit ok")
+        else:
+            name.iat[row_idx, col_idx] = status_map[selected_status]
+        
+             # Update Google Sheet
+            conn.update(worksheet=url, data=name)
+            #st.success(f"✅ Kehadiran {selected_name} untuk tanggal {selected_date} tersimpan sebagai '{status_map[selected_status]}'")
+            if selected_status == "Hadir":
+                st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga kehadiran hari ini dapat memberikan kebarokahan dan ilmu yang bermanfaat")
+            elif selected_status == "Ijin":
+                st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga allah paring banyak waktu longgar sehingga dapat hadir dijadwal sambung selanjutnya")
+            elif selected_status == "Sakit":
+                st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga allah paring kesembuhan dan kesehatan yang barokah sehingga dapat hadir dijadwal sambung selanjutnya")
     else:
          st.error("Nama tidak ditemukan dalam daftar.")
             
@@ -227,6 +230,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
