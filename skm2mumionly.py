@@ -52,7 +52,7 @@ st.markdown(
         """,
         unsafe_allow_html=True
     )
-now = datetime.now() - timedelta(hours=18)
+now = datetime.now() - timedelta(hours=-5)
 
 # Format nicely: day name, day-month-year, hour:minute:second
 formatted_now = now.strftime("%A, %d %B %Y - %H:%M:%S")
@@ -265,6 +265,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
