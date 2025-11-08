@@ -67,13 +67,27 @@ selected_date = now.day
 # selected_date = now_jakarta.day
 
 # Safely slice rows B6:B27 (column index 1 since A=0, B=1)
+
+submit_clicked = st.button("✅ Submit Kehadiran")
+if submit_clicked:
+    if selected_name == "-" or selected_status == "-":
+        st.warning("Pilih nama dan status terlebih dahulu.")
+    else:
+        # Process attendance
+        st.success(f"{selected_name} tercatat sebagai {selected_status}")
+        
+        # Reset selections
+        st.session_state["selected_name"] = "-"
+        st.session_state["selected_status"] = "-"
+
+
 name_list = name.iloc[5:27, 1].dropna().astype(str).tolist()  # B6:B27
 name_list.insert(0, "-")
-selected_name = st.selectbox("Pilih Nama:", name_list)
+selected_name = st.selectbox("Pilih Nama:", name_list, key="selected_name")
 
 status_map = {"Hadir": "H", "Ijin": "I", "Sakit": "S"}
 status_list = ["-", "Hadir", "Ijin", "Sakit"]
-selected_status = st.selectbox("Pilih Status:", status_list)
+selected_status = st.selectbox("Pilih Status:", status_list, key="selected_status")
 #selected_status = st.selectbox("Status Kehadiran:", list(status_map.keys()))
 # Text input
 
@@ -271,6 +285,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
