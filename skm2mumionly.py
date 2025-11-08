@@ -10,7 +10,7 @@ def load_css():
 load_css()
 
 #url = "https://docs.google.com/spreadsheets/d/1dK2tKeeRGAiVc6p0guapTITane-NckvuAFB3rrHu3k8/edit?usp=sharing"
-url = "AbsenNovember2025"
+url = "ea"
 
 conn = st.connection("gsheets", type=GSheetsConnection)
 
@@ -19,39 +19,11 @@ data = conn.read(worksheet=url)
 
 name= conn.read(worksheet=url)
 
-# Safely slice rows B6:B27 (column index 1 since A=0, B=1)
-name_list = name.iloc[5:27, 1].dropna().astype(str).tolist()  # B6:B27
-selected_name = st.selectbox("Pilih Nama:", name_list)
-
 #selected_date = st.8number_input("Tanggal:", min_value=1, max_value=30, step=1)
 selected_date = 8
 
-status_map = {"Hadir": "H", "Ijin": "I", "Sakit": "S"}
-selected_status = st.selectbox("Status Kehadiran:", list(status_map.keys()))
-
-if st.button("Submit Kehadiran"):
-    # Find row for the selected name
-    name_row = name.index[name.iloc[:, 1] == selected_name].tolist()
-    if name_row:
-        row_idx = name_row[0]
-        # Column D=3 (0-based index), so date 1 = col 3
-        col_idx = 3 + (selected_date - 1)
-
-        name.iat[row_idx, col_idx] = status_map[selected_status]
-
-        # Update Google Sheet
-        conn.update(worksheet=url, data=name)
-        #st.success(f"✅ Kehadiran {selected_name} untuk tanggal {selected_date} tersimpan sebagai '{status_map[selected_status]}'")
-        if selected_status == "Hadir":
-            st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga kehadiran hari ini dapat memberikan kebarokahan dan ilmu yang bermanfaat")
-        elif selected_status == "Ijin":
-            st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga allah paring banyak waktu longgar sehingga dapat hadir dijadwal sambung selanjutnya")
-        elif selected_status == "Sakit":
-            st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga allah paring kesembuhan dan kesehatan yang barokah sehingga dapat hadir dijadwal sambung selanjutnya")
-    else:
-        st.error("Nama tidak ditemukan dalam daftar.")
-        
-st.dataframe(data)
+dff = pd.DataFrame(name)
+# st.dataframe(data)
 
 # File to store submissions
 CSV_FILE = "submissions.csv"
@@ -74,11 +46,16 @@ st.markdown(
         unsafe_allow_html=True
     )
 
-# Text input
-user_input = st.text_input("Ketik nama: (contoh: fauzan / bagas ijin kerja / rehan sakit demam)")
 
-# Submit button
-if st.button("Submit"):
+# Safely slice rows B6:B27 (column index 1 since A=0, B=1)
+name_list = name.iloc[5:27, 1].dropna().astype(str).tolist()  # B6:B27
+selected_name = st.selectbox("Pilih Nama:", name_list)
+
+status_map = {"Hadir": "H", "Ijin": "I", "Sakit": "S"}
+selected_status = st.selectbox("Status Kehadiran:", list(status_map.keys()))
+# Text input
+if selected_status == "Ijin":
+    user_input = st.text_input("Ketik nama: (contoh:ijin kerja)")
     if user_input.strip() == "":
         st.warning("Tidak boleh kosong ok!")
     else:
@@ -89,14 +66,29 @@ if st.button("Submit"):
             df = pd.DataFrame(columns=["Text"])
 
         # Add new submission
-        new_row = pd.DataFrame({"Text": [user_input]})
+        new_row = pd.DataFrame({"Text":  f"{selected_name}" [user_input]})
         df = pd.concat([df, new_row], ignore_index=True)
 
         # Save to CSV
         df.to_csv(CSV_FILE, index=False)
-        st.success("✅ جَزَاكُمُ اللهُ خَيْرًا")
+elif selected_status == "Sakit":
+    user_input = st.text_input("Ketik nama: (contoh:sakit demam)")
+    if user_input.strip() == "":
+        st.warning("Tidak boleh kosong ok!")
+    else:
+        # Load or create dataframe
+        if os.path.exists(CSV_FILE):
+            df = pd.read_csv(CSV_FILE)
+        else:
+            df = pd.DataFrame(columns=["Text"])
 
-# Display current submissions
+        # Add new submission
+        new_row = pd.DataFrame({"Text": f"{selected_name}" [user_input]})
+        df = pd.concat([df, new_row], ignore_index=True)
+
+        # Save to CSV
+        df.to_csv(CSV_FILE, index=False)
+        
 if os.path.exists(CSV_FILE):
     st.subheader("Kehadiran hari ini:")
     df_display = pd.read_csv(CSV_FILE)
@@ -112,6 +104,64 @@ if os.path.exists(CSV_FILE):
 
     df_display["Absen"] = df_display["Text"].apply(censor_from_second_word)
     st.dataframe(df_display[["Absen"]])
+    
+if st.button("Submit Kehadiran"):
+    # Find row for the selected name
+    name_row = name.index[name.iloc[:, 1] == selected_name].tolist()
+    if name_row:
+        row_idx = name_row[0]
+        # Column D=3 (0-based index), so date 1 = col 3
+        col_idx = 3 + (selected_date - 1)
+
+        name.iat[row_idx, col_idx] = status_map[selected_status]
+
+        # Update Google Sheet
+        conn.update(worksheet=url, data=name)
+        #st.success(f"✅ Kehadiran {selected_name} untuk tanggal {selected_date} tersimpan sebagai '{status_map[selected_status]}'")
+        if selected_status == "Hadir":
+            st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga kehadiran hari ini dapat memberikan kebarokahan dan ilmu yang bermanfaat")
+        elif selected_status == "Ijin":
+            st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga allah paring banyak waktu longgar sehingga dapat hadir dijadwal sambung selanjutnya")
+        elif selected_status == "Sakit":
+            st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga allah paring kesembuhan dan kesehatan yang barokah sehingga dapat hadir dijadwal sambung selanjutnya")
+    else:
+        st.error("Nama tidak ditemukan dalam daftar.")
+        
+# Submit button
+# if st.button("Submit"):
+#     if user_input.strip() == "":
+#         st.warning("Tidak boleh kosong ok!")
+#     else:
+#         # Load or create dataframe
+#         if os.path.exists(CSV_FILE):
+#             df = pd.read_csv(CSV_FILE)
+#         else:
+#             df = pd.DataFrame(columns=["Text"])
+
+#         # Add new submission
+#         new_row = pd.DataFrame({"Text": [user_input]})
+#         df = pd.concat([df, new_row], ignore_index=True)
+
+#         # Save to CSV
+#         df.to_csv(CSV_FILE, index=False)
+#         st.success("✅ جَزَاكُمُ اللهُ خَيْرًا")
+
+# Display current submissions
+# if os.path.exists(CSV_FILE):
+#     st.subheader("Kehadiran hari ini:")
+#     df_display = pd.read_csv(CSV_FILE)
+
+#     # Function to censor from second word onward
+#     def censor_from_second_word(text):
+#         words = str(text).split()
+#         if len(words) > 1:
+#             censored = [words[0]] + ["*" * len(w) for w in words[1:]]
+#             return " ".join(censored)
+#         else:
+#             return text
+
+#     df_display["Absen"] = df_display["Text"].apply(censor_from_second_word)
+#     st.dataframe(df_display[["Absen"]])
 
 # Divider
 st.markdown("---")
@@ -124,23 +174,30 @@ admin_password = st.text_input("Masukan password untuk menggunakan fitur:", type
 
 # If password is correct, show expander
 if admin_password == ADMIN_PASSWORD:
-    with st.expander("🧹 Clear all data"):
+    with st.expander("🧹 Clear data alasan"):
         if st.button("Clear Data"):
             if os.path.exists(CSV_FILE):
                 os.remove(CSV_FILE)
                 st.success("✅ All data cleared successfully!")
             else:
                 st.info("No data file found to clear.")
-    with st.expander("🚀 Download data absen"):
-        st.download_button(
-            label="⬇️ Unduh absen ok",
-            data=df_display.to_csv(index=False).encode('utf-8'),
-            file_name="submissions.csv",
-            mime="text/csv"
+    with st.expander("Liat Absen / Download Absen"):
+        col1, col2 = st.columns(2)
+        with col1:
+            csv = dff.to_csv(index=False).encode("utf-8")
+            st.download_button(
+                label="⬇️ Unduh absen ok",
+                data=csv,
+                file_name="submissions.csv",
+                mime="text/csv"
+        with col2:
+            if st.button("Buka Spreedsheet absen"):
+                st.markdown(f"[👉]({url})", unsafe_allow_html=True)
     )
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
