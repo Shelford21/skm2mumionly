@@ -110,18 +110,6 @@ elif selected_status == "Hadir":
         # Save to CSV
         df.to_csv(CSV_FILE, index=False)
     
-
-    # Function to censor from second word onward
-    def censor_from_second_word(text):
-        words = str(text).split()
-        if len(words) > 1:
-            censored = [words[0]] + ["*" * len(w) for w in words[1:]]
-            return " ".join(censored)
-        else:
-            return text
-
-    df_display["Absen"] = df_display["Text"].apply(censor_from_second_word)
-    st.dataframe(df_display[["Absen"]])
     
 if st.button("Submit Kehadiran"):
     # Find row for the selected name
@@ -148,9 +136,20 @@ if st.button("Submit Kehadiran"):
         else:
             st.error("Nama tidak ditemukan dalam daftar.")
             
-#if os.path.exists(CSV_FILE):
-st.subheader("Kehadiran hari ini:")
-df_display = pd.read_csv(CSV_FILE)
+if os.path.exists(CSV_FILE):
+    st.subheader("Kehadiran hari ini:")
+    df_display = pd.read_csv(CSV_FILE)
+    # Function to censor from second word onward
+    def censor_from_second_word(text):
+        words = str(text).split()
+        if len(words) > 1:
+            censored = [words[0]] + ["*" * len(w) for w in words[1:]]
+            return " ".join(censored)
+        else:
+            return text
+
+    df_display["Absen"] = df_display["Text"].apply(censor_from_second_word)
+    st.dataframe(df_display[["Absen"]])
     
 # Submit button
 # if st.button("Submit"):
@@ -227,6 +226,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
