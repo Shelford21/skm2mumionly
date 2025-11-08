@@ -15,17 +15,20 @@ conn = st.connection("gsheets", type=GSheetsConnection)
 
 data = conn.read(spreadsheet=url, worksheet="1750077145")
 
-# Read only the range B6:B27 from "Sheet1"
-name = conn.read(spreadsheet=url, worksheet="1750077145", usecols="B", skiprows=5, nrows=22)
+name= conn.read(spreadsheet=url, worksheet="1750077145")
 
-# Drop empty rows just in case
-name = name.dropna().reset_index(drop=True)
+# Safely slice rows B6:B27 (column index 1 since A=0, B=1)
+if name.shape[1] >= 2:  # ensure at least 2 columns exist
+    names = name.iloc[5:27, 1].dropna().astype(str).tolist()  # B6–B27
+else:
+    names = []
 
-# Get list of names
-name_list = name.iloc[:, 0].tolist()
-
-# Create dropdown
-selected_name = st.selectbox("Select a name:", name_list)
+# Show dropdown
+if names:
+    selected_name = st.selectbox("Select a name:", names)
+    st.write(f"You selected: **{selected_name}**")
+else:
+    st.warning("No names found in range B6:B27.")
 
 
 st.dataframe(data)
@@ -118,6 +121,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
