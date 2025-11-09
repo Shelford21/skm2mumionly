@@ -15,6 +15,12 @@ load_css()
 
 #url = "https://docs.google.com/spreadsheets/d/1dK2tKeeRGAiVc6p0guapTITane-NckvuAFB3rrHu3k8/edit?usp=sharing"
 url = "AbsenNovember2025"
+urlp = "percobaan"
+
+percobaan= conn.read(worksheet=urlp)
+value_b7 = url.iat[6, 1] 
+urlp.iat[6, 9] = f"Komentar otomatis: {value_b7}"
+conn.update(worksheet=urlp, data=urlp)
 #urll = "https://docs.google.com/spreadsheets/d/1dK2tKeeRGAiVc6p0guapTITane-NckvuAFB3rrHu3k8/edit?usp=sharing"
 # sheet_id = "1dK2tKeeRGAiVc6p0guapTITane-NckvuAFB3rrHu3k8"
 # excel_link = f"https://docs.google.com/spreadsheets/d/1dK2tKeeRGAiVc6p0guapTITane-NckvuAFB3rrHu3k8/export?format=xlsx"
@@ -275,6 +281,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
