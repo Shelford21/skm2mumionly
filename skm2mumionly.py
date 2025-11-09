@@ -257,8 +257,6 @@ admin_password = st.text_input("Masukan password untuk menggunakan fitur:", type
 # If password is correct, show expander
 if admin_password == ADMIN_PASSWORD:
     with st.expander("🧹 Clear data alasan"):
-        if st.button("cc"):
-            st.dataframe(dff, use_container_width=True, height=600)
         if st.button("Clear Data"):
             if os.path.exists(CSV_FILE):
                 os.remove(CSV_FILE)
@@ -266,7 +264,7 @@ if admin_password == ADMIN_PASSWORD:
             else:
                 st.info("No data file found to clear.")
     with st.expander("🚀 Unduh Absen"):
-        col1, col2 = st.columns(2)
+        col1, col2 = st.columns(3)
         with col1:
             csv = dff.to_csv(index=False).encode("utf-8")
             st.download_button(
@@ -274,8 +272,10 @@ if admin_password == ADMIN_PASSWORD:
                 data=csv,
                 file_name="absen report.csv",
                 mime="text/csv")
-                
         with col2:
+            if st.button("Liat Absen"):
+                st.dataframe(dff, use_container_width=True, height=600)
+        with col3:
             st.download_button(
                 label="⬇️ alasan ijin/sakit",
                 data=df_display.to_csv(index=False).encode('utf-8'),
@@ -285,6 +285,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
