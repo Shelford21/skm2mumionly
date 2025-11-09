@@ -24,10 +24,10 @@ urlp = "percobaan"
 
 conn = st.connection("gsheets", type=GSheetsConnection)
 
-percobaan= conn.read(worksheet=urlp)
-value_b7 = url.iat[6, 1] 
-urlp.iat[6, 9] = f"Komentar otomatis: {value_b7}"
-conn.update(worksheet=urlp, data=urlp)
+# percobaan= conn.read(worksheet=urlp)
+# value_b7 = url.iat[6, 1] 
+# urlp.iat[6, 9] = f"Komentar otomatis: {value_b7}"
+# conn.update(worksheet=urlp, data=urlp)
 
 #data = conn.read(spreadsheet=url, worksheet="1750077145")
 data = conn.read(worksheet=url)
@@ -283,6 +283,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
