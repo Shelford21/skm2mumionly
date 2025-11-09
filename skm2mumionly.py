@@ -264,7 +264,7 @@ if admin_password == ADMIN_PASSWORD:
             else:
                 st.info("No data file found to clear.")
     with st.expander("🚀 Unduh Absen"):
-        col1, col2 = st.columns(3)
+        col1, col2 ,col3= st.columns(3)
         with col1:
             csv = dff.to_csv(index=False).encode("utf-8")
             st.download_button(
@@ -285,6 +285,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
