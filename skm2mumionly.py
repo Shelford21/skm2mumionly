@@ -258,8 +258,7 @@ admin_password = st.text_input("Masukan password untuk menggunakan fitur:", type
 if admin_password == ADMIN_PASSWORD:
     with st.expander("🧹 Clear data alasan"):
         if st.button("cc"):
-            csv = dff.to_csv(index=False).encode("utf-8")
-            st.dataframe(csv, use_container_width=True, height=6000)
+            st.dataframe(dff, use_container_width=True, height=600)
         if st.button("Clear Data"):
             if os.path.exists(CSV_FILE):
                 os.remove(CSV_FILE)
@@ -286,6 +285,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
