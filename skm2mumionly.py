@@ -273,7 +273,7 @@ if admin_password == ADMIN_PASSWORD:
                 file_name="absen report.csv",
                 mime="text/csv")
         with col2:
-            if st.button("Liat Absen"):
+            if st.button("⬇️ liat absen"):
                 st.dataframe(dff, use_container_width=True, height=600)
         with col3:
             st.download_button(
@@ -285,6 +285,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
