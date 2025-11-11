@@ -169,7 +169,7 @@ if st.button("Submit Kehadiran"):
                     else:
                         pass
             else:
-                #name.iat[row_idx, col_idx] = status_map[selected_status]
+                name.iat[row_idx, col_idx] = status_map[selected_status]
             
                  # Update Google Sheet
                 
@@ -285,6 +285,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
