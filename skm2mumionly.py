@@ -83,6 +83,7 @@ name_list.insert(0, "-")
 
 # --- collect inputs first ---
 selected_name = st.selectbox("Pilih Nama:", name_list)
+status_map = {"Hadir": "H", "Ijin": "I", "Sakit": "S"}
 selected_status = st.selectbox("Pilih Status:", ["-", "Hadir", "Ijin", "Sakit"])
 
 user_input = ""
@@ -227,6 +228,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
