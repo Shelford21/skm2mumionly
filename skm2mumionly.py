@@ -6,6 +6,13 @@ from streamlit_gsheets import GSheetsConnection
 from io import BytesIO
 from datetime import datetime, timedelta
 
+st_autorefresh = st.experimental_rerun  # Newer versions renamed this
+try:
+    st_autorefresh = st_autorefresh
+except:
+    from streamlit_autorefresh import st_autorefresh
+
+st_autorefresh(interval=20 * 1000, key="auto_refresh") 
 #from zoneinfo import ZoneInfo
 
 def load_css():
@@ -245,6 +252,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
