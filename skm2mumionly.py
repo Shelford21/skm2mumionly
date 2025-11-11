@@ -13,7 +13,10 @@ def load_css():
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 load_css()
-
+@st.cache_data(ttl=60)
+def load_sheet():
+    """Read Google Sheet (cached for 60 seconds)."""
+    return conn.read(worksheet=url)
 #url = "https://docs.google.com/spreadsheets/d/1dK2tKeeRGAiVc6p0guapTITane-NckvuAFB3rrHu3k8/edit?usp=sharing"
 url = "AbsenNovember2025"
 urlp = "percobaan"
@@ -33,8 +36,8 @@ conn = st.connection("gsheets", type=GSheetsConnection)
 
 #data = conn.read(spreadsheet=url, worksheet="1750077145")
 data = conn.read(worksheet=url)
-
-name= conn.read(worksheet=url)
+#name= conn.read(worksheet=url)
+name= load_sheet()
 
 #selected_date = st.8number_input("Tanggal:", min_value=1, max_value=30, step=1)
 
@@ -72,6 +75,9 @@ st.markdown(f"### 🗺️ {formatted_now}")
 # Use day of month for attendance
 selected_date = now.day
 
+if st.button("🔄 Refresh Data"):
+    st.cache_data.clear()
+    st.rerun()
 # now_jakarta = datetime.now(tz=ZoneInfo("Asia/Jakarta"))
 # formatted_now = now_jakarta.strftime("%A, %d %B %Y - %H:%M:%S")
 # selected_date = now_jakarta.day
@@ -98,6 +104,9 @@ elif selected_status == "Hadir":
 
 # --- only process when the button is pressed ---
 if st.button("Submit Kehadiran"):
+
+    st.cache_data.clear()
+    name = load_sheet()
     # basic validation
     if selected_name == "-":
         st.warning("⚠️ Silakan pilih nama terlebih dahulu.")
@@ -235,6 +244,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
