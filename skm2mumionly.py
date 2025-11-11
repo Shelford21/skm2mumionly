@@ -135,7 +135,7 @@ if st.button("Submit Kehadiran"):
 
             # --- feedback messages ---
             if selected_status == "Hadir":
-                st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga kehadiran hari ini membawa keberkahan.")
+                st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga kehadiran hari ini membawa kebarokahan dan ilmu yang bermanfaat.")
             elif selected_status == "Ijin":
                 st.success(f"✅ {selected_name} - Semoga Allah memberi kelonggaran waktu untuk hadir di pertemuan selanjutnya.")
             elif selected_status == "Sakit":
@@ -235,6 +235,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
