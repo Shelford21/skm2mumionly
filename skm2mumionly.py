@@ -220,9 +220,10 @@ if admin_password == ADMIN_PASSWORD:
             if os.path.exists(CSV_FILE):
                 os.remove(CSV_FILE)
                 st.success("✅ All data cleared successfully!")
+                st.rerun()
             else:
                 st.info("No data file found to clear.")
-    with st.expander("🚀 Unduh Absen"):
+    with st.expander("🚀 Absen"):
         col1, col2 ,col3= st.columns(3)
         with col1:
             csv = dff.to_csv(index=False).encode("utf-8")
@@ -244,6 +245,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
