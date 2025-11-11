@@ -6,21 +6,21 @@ from streamlit_gsheets import GSheetsConnection
 from io import BytesIO
 from datetime import datetime, timedelta
 
-st_autorefresh = st.rerun()  # Newer versions renamed this
-try:
-    st_autorefresh = st_autorefresh
-except:
-    from streamlit_autorefresh import st_autorefresh
+# st_autorefresh = st.rerun()  # Newer versions renamed this
+# try:
+#     st_autorefresh = st_autorefresh
+# except:
+#     from streamlit_autorefresh import st_autorefresh
 
-st_autorefresh(interval=20 * 1000, key="auto_refresh") 
-#from zoneinfo import ZoneInfo
+# st_autorefresh(interval=20 * 1000, key="auto_refresh") 
+# #from zoneinfo import ZoneInfo
 
 def load_css():
     with open("styles.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 load_css()
-@st.cache_data(ttl=60)
+@st.cache_data(ttl=30)
 def load_sheet():
     """Read Google Sheet (cached for 60 seconds)."""
     return conn.read(worksheet=url)
@@ -252,6 +252,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
