@@ -114,8 +114,13 @@ if st.button("Submit Kehadiran"):
             col_idx = 3 + (selected_date - 1)  # date columns start from D
 
             # update the Google Sheet attendance cell
-            name.iat[row_idx, col_idx] = status_map[selected_status]
-            conn.update(worksheet=url, data=name)
+            # name.iat[row_idx, col_idx] = status_map[selected_status]
+            # conn.update(worksheet=url, data=name)
+            # Ambil worksheet Google Sheet
+            sheet = conn.open("AbsensiMumiSKM2").worksheet("AbsenNovember2025")  # ganti dengan nama aslimu
+
+            # Simpan status ke cell yang sesuai
+            sheet.update_cell(row_idx + 1, col_idx + 1, status_map[selected_status])
 
             # --- Save to local CSV ---
             if os.path.exists(CSV_FILE):
@@ -228,6 +233,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
