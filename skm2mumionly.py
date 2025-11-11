@@ -18,7 +18,8 @@ load_css()
 url = "AbsenNovember2025"
 urlp = "percobaan"
 
-
+if "submitted" not in st.session_state:
+    st.session_state.submitted = False
 #urll = "https://docs.google.com/spreadsheets/d/1dK2tKeeRGAiVc6p0guapTITane-NckvuAFB3rrHu3k8/edit?usp=sharing"
 # sheet_id = "1dK2tKeeRGAiVc6p0guapTITane-NckvuAFB3rrHu3k8"
 # excel_link = f"https://docs.google.com/spreadsheets/d/1dK2tKeeRGAiVc6p0guapTITane-NckvuAFB3rrHu3k8/export?format=xlsx"
@@ -94,6 +95,7 @@ elif selected_status == "Sakit":
 elif selected_status == "Hadir":
     user_input = "Hadir"  # still assign, but don’t submit yet
 
+
 # --- only process when the button is pressed ---
 if st.button("Submit Kehadiran"):
     # basic validation
@@ -104,6 +106,8 @@ if st.button("Submit Kehadiran"):
     elif selected_status in ["Ijin", "Sakit"] and user_input.strip() == "":
         st.warning("⚠️ Alasan tidak boleh kosong.")
     else:
+        # Mark as submitted to prevent repeat
+        st.session_state.submitted = True
         # find the row of selected name
         name_row = name.index[name.iloc[:, 1] == selected_name].tolist()
 
@@ -114,13 +118,10 @@ if st.button("Submit Kehadiran"):
             col_idx = 3 + (selected_date - 1)  # date columns start from D
 
             # update the Google Sheet attendance cell
-            # name.iat[row_idx, col_idx] = status_map[selected_status]
-            # conn.update(worksheet=url, data=name)
+            name.iat[row_idx, col_idx] = status_map[selected_status]
+            conn.update(worksheet=url, data=name)
             # Ambil worksheet Google Sheet
-            sheet = conn.open("AbsensiMumiSKM2").worksheet("AbsenNovember2025")  # ganti dengan nama aslimu
-
-            # Simpan status ke cell yang sesuai
-            sheet.update_cell(row_idx + 1, col_idx + 1, status_map[selected_status])
+            
 
             # --- Save to local CSV ---
             if os.path.exists(CSV_FILE):
@@ -139,7 +140,8 @@ if st.button("Submit Kehadiran"):
                 st.success(f"✅ {selected_name} - Semoga Allah memberi kelonggaran waktu untuk hadir di pertemuan selanjutnya.")
             elif selected_status == "Sakit":
                 st.success(f"✅ {selected_name} - Semoga Allah memberikan kesembuhan yang barokah.")
-
+if st.session_state.submitted:
+    st.session_state.submitted = False
             
 if os.path.exists(CSV_FILE):
     st.subheader("Kehadiran hari ini:")
@@ -233,6 +235,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
