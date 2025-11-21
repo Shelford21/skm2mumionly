@@ -153,9 +153,9 @@ if st.button("Submit Kehadiran"):
             if selected_status == "Hadir":
                 st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga kehadiran hari ini membawa kebarokahan dan ilmu yang bermanfaat.")
             elif selected_status == "Ijin":
-                st.success(f"✅ {selected_name} - Semoga Allah memberi kelonggaran waktu untuk hadir di pertemuan selanjutnya.")
+                st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga Allah paring kelonggaran waktu untuk hadir di pertemuan selanjutnya.")
             elif selected_status == "Sakit":
-                st.success(f"✅ {selected_name} - Semoga Allah memberikan kesembuhan yang barokah.")
+                st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga Allah paring kesembuhan dan kesehatan yang barokah.")
 if st.session_state.submitted:
     st.session_state.submitted = False
             
@@ -252,6 +252,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
