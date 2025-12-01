@@ -92,7 +92,7 @@ if st.button("🔄 Refresh Data"):
 # Safely slice rows B6:B27 (column index 1 since A=0, B=1)
 
 
-name_list = name.iloc[0:28, 1].dropna().astype(str).tolist()  # B6:B27
+name_list = name.iloc[1:28, 1].dropna().astype(str).tolist()  # B6:B27
 name_list.insert(0, "-")
 
 # --- collect inputs first ---
@@ -252,6 +252,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
