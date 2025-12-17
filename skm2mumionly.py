@@ -6,7 +6,7 @@ from streamlit_gsheets import GSheetsConnection
 from io import BytesIO
 from datetime import datetime, timedelta
 
-# st_autorefresh = st.rerun()  # Newer versions renamed this
+# st_autorefresh = st.rerun()  # 
 # try:
 #     st_autorefresh = st_autorefresh
 # except:
@@ -52,7 +52,7 @@ name= load_sheet()
 dff = pd.DataFrame(name)
 # st.dataframe(data)
 
-# nama file
+# file nnti ini
 CSV_FILE = "submissions.csv"
 # disni pass ny le
 ADMIN_PASSWORD = "mumi99"
@@ -251,6 +251,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
