@@ -52,9 +52,9 @@ name= load_sheet()
 dff = pd.DataFrame(name)
 # st.dataframe(data)
 
-# File to store submissions
+# nama file
 CSV_FILE = "submissions.csv"
-# Set your admin password here
+# disni pass ny le
 ADMIN_PASSWORD = "mumi99"
 
 st.set_page_config(page_title="Mumi Sukamulya 2",
@@ -74,14 +74,15 @@ st.markdown(
     )
 now = datetime.now() - timedelta(hours=-7)
 
-# Format nicely: day name, day-month-year, hour:minute:second
+# Format nama hari, tanggal-bulan-tahun, jam:menit:detik. cek in pls
 formatted_now = now.strftime("%A, %d %B %Y - %H:%M:%S")
 
 st.markdown(f"### 🗺️ {formatted_now}")
 
-# Use day of month for attendance
+# buat set hari skrg
 selected_date = now.day
 
+#tombol refresh ms
 if st.button("🔄 Refresh Data"):
     st.cache_data.clear()
     st.rerun()
@@ -89,13 +90,12 @@ if st.button("🔄 Refresh Data"):
 # formatted_now = now_jakarta.strftime("%A, %d %B %Y - %H:%M:%S")
 # selected_date = now_jakarta.day
 
-# Safely slice rows B6:B27 (column index 1 since A=0, B=1)
 
 
 name_list = name.iloc[1:28, 1].dropna().astype(str).tolist()  # B6:B27
 name_list.insert(0, "-")
 
-# --- collect inputs first ---
+# kumpulin input ny dlu
 selected_name = st.selectbox("Pilih Nama:", name_list)
 status_map = {"Hadir": "H", "Ijin": "I", "Sakit": "S"}
 selected_status = st.selectbox("Pilih Status:", ["-", "Hadir", "Ijin", "Sakit"])
@@ -106,15 +106,14 @@ if selected_status == "Ijin":
 elif selected_status == "Sakit":
     user_input = st.text_input("Ketik alasan: (contoh: sakit demam)")
 elif selected_status == "Hadir":
-    user_input = "Hadir"  # still assign, but don’t submit yet
+    user_input = "Hadir" 
 
 
-# --- only process when the button is pressed ---
 if st.button("Submit Kehadiran"):
 
     st.cache_data.clear()
     name = load_sheet()
-    # basic validation
+    
     if selected_name == "-":
         st.warning("⚠️ Silakan pilih nama terlebih dahulu.")
     elif selected_status == "-":
@@ -124,22 +123,22 @@ if st.button("Submit Kehadiran"):
     else:
         # Mark as submitted to prevent repeat
         st.session_state.submitted = True
-        # find the row of selected name
+        # ambil nama. cek iloc, hati2
         name_row = name.index[name.iloc[:, 1] == selected_name].tolist()
 
         if not name_row:
             st.error("Nama tidak ditemukan dalam daftar.")
         else:
             row_idx = name_row[0]
-            col_idx = 3 + (selected_date - 1)  # date columns start from D
+            col_idx = 3 + (selected_date - 1)  # kolom tanggal cek sheet nya pls
 
-            # update the Google Sheet attendance cell
+            # update sheet ny , menyesuaikan
             name.iat[row_idx, col_idx] = status_map[selected_status]
             conn.update(worksheet=url, data=name)
             # Ambil worksheet Google Sheet
             
 
-            # --- Save to local CSV ---
+            # simpen ke lokal
             if os.path.exists(CSV_FILE):
                 df = pd.read_csv(CSV_FILE)
             else:
@@ -149,7 +148,7 @@ if st.button("Submit Kehadiran"):
             df = pd.concat([df, new_row], ignore_index=True)
             df.to_csv(CSV_FILE, index=False)
 
-            # --- feedback messages ---
+            # output pesan aj
             if selected_status == "Hadir":
                 st.success(f"✅ جَزَاكُمُ اللهُ خَيْرًا {selected_name} - Semoga kehadiran hari ini membawa kebarokahan dan ilmu yang bermanfaat.")
             elif selected_status == "Ijin":
@@ -162,7 +161,7 @@ if st.session_state.submitted:
 if os.path.exists(CSV_FILE):
     st.subheader("Kehadiran hari ini:")
     df_display = pd.read_csv(CSV_FILE)
-    # Function to censor from second word onward
+    # sensor bintang
     def censor_from_second_word(text):
         words = str(text).split()
         if len(words) > 1:
@@ -211,16 +210,16 @@ if os.path.exists(CSV_FILE):
 #     st.dataframe(df_display[["Absen"]])
 
 
-# Divider
+
 st.markdown("---")
 
-# Admin section
+
 st.subheader("Khusus Admin")
 
-# Ask for password first
+
 admin_password = st.text_input("Masukan password untuk menggunakan fitur:", type="password")
 
-# If password is correct, show expander
+
 if admin_password == ADMIN_PASSWORD:
     with st.expander("🧹 Clear data alasan"):
         if st.button("Clear Data"):
@@ -252,6 +251,7 @@ if admin_password == ADMIN_PASSWORD:
 else:
     if admin_password != "":
         st.error("❌ Incorrect password.")
+
 
 
 
