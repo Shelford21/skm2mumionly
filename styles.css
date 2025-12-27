@@ -323,7 +323,7 @@ div[data-testid="stVerticalBlock"]>div>div>button{
 /* Styles for Tablets (768px and below) */
 @media only screen and (max-width: 768px) {
     div[data-testid="stAppViewContainer"] {
-        background: url("https://images.unsplash.com/photo-1454789548928-9efd52dc4031?auto=format&w=3840&q=90");
+        background: url("https://images.unsplash.com/photo-1454789548928-9efd52dc4031?auto=format&w=1440&q=85&dpr=2");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -529,6 +529,7 @@ font-size: 1.3rem;
 		transform: scale3d(1, 1, 1);
 	}
 }
+
 
 
 
