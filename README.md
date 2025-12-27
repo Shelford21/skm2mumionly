@@ -1,1 +1,1 @@
-# [skm2mumionly](https://skm2pragponly.streamlit.app/) <-- klik lee
+# [skm2mumionly](skm2mumionly.streamlit.app) <-- klik lee
